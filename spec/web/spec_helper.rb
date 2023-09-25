@@ -1,6 +1,7 @@
 # frozen_string_literal: true
+
 require_relative '../coverage_helper'
-ENV["RACK_ENV"] = "test"
+ENV['RACK_ENV'] = 'test'
 require_relative '../../app'
 Tilt.finalize!
 
@@ -14,27 +15,29 @@ Gem.suffix_pattern
 
 require_relative '../minitest_helper'
 
-App.plugin :not_found do
-  raise "404 - File Not Found"
+Trooper.plugin :not_found do
+  raise '404 - File Not Found'
 end
-App.plugin :error_handler do |e|
+Trooper.plugin :error_handler do |e|
   raise e
 end
 
-App.freeze if ENV['NO_AUTOLOAD']
-Capybara.app = App.app
+Trooper.freeze if ENV['NO_AUTOLOAD']
+Capybara.app = Trooper.app
 Capybara.exact = true
 
-class Minitest::HooksSpec
-  include Rack::Test::Methods
-  include Capybara::DSL
+module Minitest
+  class HooksSpec
+    include Rack::Test::Methods
+    include Capybara::DSL
 
-  def app
-    Capybara.app
-  end
+    def app
+      Capybara.app
+    end
 
-  after do
-    Capybara.reset_sessions!
-    Capybara.use_default_driver
+    after do
+      Capybara.reset_sessions!
+      Capybara.use_default_driver
+    end
   end
 end

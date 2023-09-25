@@ -1,0 +1,22 @@
+{
+  "scripts": {
+    "build": "esbuild ./assets/js/app.js --bundle --outfile=./assets/js/build/main.js --watch",
+    "build:watch": "esbuild ./assets/js/app.js --bundle --outfile=./assets/js/build/main.js --watch",
+    "build:prod": "esbuild ./assets/js/app.js --bundle --minify --outfile=./assets/js/build/main.js",
+    "build:css": "tailwindcss -i ./assets/css/app.css -o ./assets/css/build/main.css -c ./config/tailwind.config.js",
+    "build:css:watch": "tailwindcss -i ./assets/css/app.css -o ./assets/css/build/main.css --watch -c ./config/tailwind.config.js"
+  },
+  "devDependencies": {
+    "install": "^0.13.0",
+    "npm": "^10.1.0",
+    "tailwindcss": "^3.3.3"
+  },
+  "dependencies": {
+    "@tailwindcss/aspect-ratio": "^0.4.2",
+    "@tailwindcss/container-queries": "^0.1.1",
+    "@tailwindcss/forms": "^0.5.6",
+    "@tailwindcss/typography": "^0.5.10",
+    "esbuild": "^0.19.3",
+    "htmx.org": "^1.9.6"
+  }
+}

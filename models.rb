@@ -1,10 +1,9 @@
 # frozen_string_literal: true
+
 require_relative 'db'
 require 'sequel/model'
 
-if ENV['RACK_ENV'] == 'development'
-  Sequel::Model.cache_associations = false
-end
+Sequel::Model.cache_associations = false if ENV['RACK_ENV'] == 'development'
 
 Sequel::Model.plugin :auto_validations
 Sequel::Model.plugin :require_valid_schema
@@ -15,7 +14,7 @@ unless defined?(Unreloader)
   Unreloader = Rack::Unreloader.new(reload: false, autoload: !ENV['NO_AUTOLOAD'])
 end
 
-Unreloader.autoload('models'){|f| Sequel::Model.send(:camelize, File.basename(f).sub(/\.rb\z/, ''))}
+Unreloader.autoload('models') { |f| Sequel::Model.send(:camelize, File.basename(f).sub(/\.rb\z/, '')) }
 
 if ENV['RACK_ENV'] == 'development' || ENV['RACK_ENV'] == 'test'
   require 'logger'

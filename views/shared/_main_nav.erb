@@ -1,0 +1,30 @@
+<div class="w-full px-6 h-16 shadow flex justify-between items-center">
+  <div id="logo">
+    <a class="text-3xl" href="/">Trooper</a>
+    <% if env['REQUEST_PATH'].include?('admin') %>
+      <span class="text-3xl">|</span>
+      <span class="text-xl">Admin</span>
+    <% end %>
+  </div>
+  <div class="flex gap-2">
+    <% if false %>
+      <div class="flex items-center gap-2">
+        <% if false %>
+          <div><%= link_to 'Troop', troop_path(current_troop) %></div>
+          <div>|</div>
+          <div><%= link_to 'Events', troop_events_path(current_troop) %></div>
+        <% end %>
+      </div>
+
+    <% else %>
+      <div class="flex items-center">
+        <div class="mr-4">
+          <a href="/sign_in">Sign In</a>
+        </div>
+        <div>
+          <a href="/sign_up">Sign up</a>
+        </div>
+      </div>
+    <% end %>
+  </div>
+</div>

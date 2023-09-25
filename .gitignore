@@ -1,3 +1,5 @@
 /.env.rb
-/test-stack
 /coverage
+/node_modules
+/assets/js/build/*.js
+/assets/css/build/*.css
