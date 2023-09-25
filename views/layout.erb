@@ -3,11 +3,12 @@
   <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="clerk_pub_key" content="<%= clerk_pub_key %>">
     <%== assets(:css) %>
     <%== assets(:js) %>
     <title>Trooper<% if @page_title %> - <%= @page_title %><% end %></title>
   </head>
-  <body>
+  <body hx-boost="true">
     <%== partial('shared/main_nav') %>
 
     <div class="flex justify-center mt-8 mx-4 sm:mx-8 md:mx-0">

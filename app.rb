@@ -6,6 +6,7 @@ require 'roda'
 
 require 'tilt'
 require 'tilt/erubi'
+require_relative 'helpers/application_helper'
 
 class Trooper < Roda
   opts[:check_dynamic_arity] = false
@@ -19,12 +20,14 @@ class Trooper < Roda
 
   plugin :content_security_policy do |csp|
     csp.default_src :none
-    csp.style_src :self, :'unsafe-inline'
-    csp.form_action :self
-    csp.script_src :self
-    csp.connect_src :self
+    csp.style_src :self, :'unsafe-inline', 'https://rare-krill-93.clerk.accounts.dev'
+    csp.form_action :self, 'https://rare-krill-93.clerk.accounts.dev'
+    csp.script_src :self, 'https://rare-krill-93.clerk.accounts.dev'
+    csp.connect_src :self, 'https://rare-krill-93.clerk.accounts.dev'
     csp.base_uri :none
     csp.frame_ancestors :none
+    csp.worker_src 'blob:', 'https://rare-krill-93.clerk.accounts.dev'
+    csp.img_src :self, 'https://img.clerk.com'
   end
 
   css_opts = { cache: false, style: :compressed }
@@ -32,7 +35,6 @@ class Trooper < Roda
   plugin :render_coverage if defined?(SimpleCov)
   # :nocov:
 
-  plugin :route_csrf
   plugin :flash
   plugin :assets,
          js: 'build/main.js',
@@ -51,7 +53,7 @@ class Trooper < Roda
   logger = if ENV['RACK_ENV'] == 'test'
              Class.new { def write(_) end }.new
            else
-             $stderr
+             AppLogger
            end
   plugin :common_logger, logger
 
@@ -77,19 +79,12 @@ class Trooper < Roda
   end
 
   plugin :error_handler do |e|
-    case e
-    when Roda::RodaPlugins::RouteCsrf::InvalidToken
-      @page_title = 'Invalid Security Token'
-      response.status = 400
-      view(content: '<p>An invalid security token was submitted with this request, and this request could not be processed.</p>')
-    else
-      $stderr.print "#{e.class}: #{e.message}\n"
-      warn e.backtrace
-      next exception_page(e, assets: true) if ENV['RACK_ENV'] == 'development'
+    $stderr.print "#{e.class}: #{e.message}\n"
+    warn e.backtrace
+    next exception_page(e, assets: true) if ENV['RACK_ENV'] == 'development'
 
-      @page_title = 'Internal Server Error'
-      view(content: '')
-    end
+    @page_title = 'Internal Server Error'
+    view(content: '')
   end
 
   plugin :sessions,
@@ -103,15 +98,29 @@ class Trooper < Roda
   end
   Unreloader.autoload('routes', delete_hook: proc { |f| hash_branch(File.basename(f).delete_suffix('.rb')) }) {}
 
+  include ApplicationHelper
+
   route do |r|
     r.public
     r.assets
-    check_csrf!
 
     r.hash_branches('')
 
     r.root do
       view 'index'
+    end
+
+    r.is 'sign_in' do
+      view 'users/sign_in'
+    end
+
+    r.is 'sign_out' do
+      r.delete do
+      end
+    end
+
+    r.is 'sign_up' do
+      view 'users/sign_up'
     end
   end
 end

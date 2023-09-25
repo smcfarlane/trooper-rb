@@ -13,12 +13,10 @@ Unreloader = Rack::Unreloader.new(subclasses: %w[Roda Sequel::Model], logger: lo
 end
 require_relative 'models'
 Unreloader.require('app.rb') { 'Trooper' }
-run(dev ? Unreloader : Trooper.freeze.app)
 
-unless dev
-  require 'tilt/sass' unless File.exist?(File.expand_path('compiled_assets.json', __dir__))
-  Tilt.finalize!
-end
+require './config/clerk'
+
+run(dev ? Unreloader : Trooper.freeze.app)
 
 freeze_core = false
 # freeze_core = !dev # Uncomment to enable refrigerator
