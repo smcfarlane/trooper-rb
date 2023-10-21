@@ -2,8 +2,6 @@
 AllCops:
   NewCops: enable
   SuggestExtensions: false
-require:
-  - rubocop-rails
 
 Style/FrozenStringLiteralComment:
   Enabled: false

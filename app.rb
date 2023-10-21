@@ -20,14 +20,13 @@ class Trooper < Roda
 
   plugin :content_security_policy do |csp|
     csp.default_src :none
-    csp.style_src :self, :'unsafe-inline', 'https://rare-krill-93.clerk.accounts.dev'
-    csp.form_action :self, 'https://rare-krill-93.clerk.accounts.dev'
-    csp.script_src :self, 'https://rare-krill-93.clerk.accounts.dev'
-    csp.connect_src :self, 'https://rare-krill-93.clerk.accounts.dev'
+    csp.style_src :self, :'unsafe-inline'
+    csp.form_action :self
+    csp.script_src :self
+    csp.connect_src :self
     csp.base_uri :none
     csp.frame_ancestors :none
-    csp.worker_src 'blob:', 'https://rare-krill-93.clerk.accounts.dev'
-    csp.img_src :self, 'https://img.clerk.com'
+    csp.img_src :self
   end
 
   css_opts = { cache: false, style: :compressed }
