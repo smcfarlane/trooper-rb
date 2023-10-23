@@ -2,5 +2,7 @@
 /coverage
 /node_modules
 /assets/js/build/*.js
+/assets/js/build/*.map
 /assets/css/build/*.css
+/assets/css/build/*.map
 /public/assets/*
