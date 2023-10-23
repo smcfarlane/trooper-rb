@@ -6,19 +6,22 @@
   "scripts": {
     "build:js": "esbuild ./assets/js/main.js --bundle --minify --sourcemap --outfile=./assets/js/build/main-build.js",
     "build:js:watch": "esbuild ./assets/js/main.js --bundle --outfile=./assets/js/build/main-build.js --watch",
-    "build:css": "sass ./assets/css/main.scss ./assets/css/build/main-build.css",
-    "build:css:watch": "sass --watch ./assets/css/main.scss ./assets/css/build/main-build.css"
+    "build:css": "tailwindcss -c ./config/tailwind.config.js -i ./assets/css/main.css -o ./assets/css/build/main-build.css",
+    "build:css:watch": "tailwindcss -c ./config/tailwind.config.js -i ./assets/css/main.css -o ./assets/css/build/main-build.css --watch"
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
   "dependencies": {
-    "@popperjs/core": "^2.11.8",
     "alpinejs": "^3.13.2",
-    "bootstrap": "^5.3.2",
-    "bootswatch": "^5.3.2",
     "esbuild": "^0.19.5",
-    "htmx.org": "^1.9.6",
-    "sass": "^1.69.4"
+    "htmx.org": "^1.9.6"
+  },
+  "devDependencies": {
+    "@tailwindcss/aspect-ratio": "^0.4.2",
+    "@tailwindcss/container-queries": "^0.1.1",
+    "@tailwindcss/forms": "^0.5.6",
+    "@tailwindcss/typography": "^0.5.10",
+    "tailwindcss": "^3.3.3"
   }
 }

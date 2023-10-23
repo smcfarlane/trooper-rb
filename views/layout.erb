@@ -7,11 +7,11 @@
     <%== assets(:js, defer: nil) %>
     <title>Trooper<% if @page_title %> - <%= @page_title %><% end %></title>
   </head>
-  <body hx-boost="true">
+  <body class="dark:bg-stone-700 dark:text-gray-100" hx-boost="true">
     <%== partial('shared/main_nav') %>
 
-    <div class="d-flex justify-content-center">
-      <main id="main" class="container d-flex flex-column gap pt-4" hx-target="main#main" hx-swap=""innerHTML>
+    <div class="flex justify-center mt-8 mx-4 sm:mx-8 md:mx-0">
+      <main id="main" class="w-full md:w-11/12 lg:w-10/12 xl:w-8/12" hx-target="main#main" hx-swap=""innerHTML>
         <% if flash.any? %>
           <div class="p-4">
             <% if flash['notice'] %>
