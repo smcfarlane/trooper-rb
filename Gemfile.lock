@@ -34,6 +34,8 @@ GEM
     faraday-excon (1.1.0)
     faraday-net_http (1.0.1)
     faraday-net_http_persistent (1.2.0)
+    forme (2.4.1)
+      bigdecimal
     jwt (2.7.1)
     matrix (0.4.2)
     mini_mime (1.1.5)
@@ -110,6 +112,7 @@ DEPENDENCIES
   capybara
   clerk-sdk-ruby
   erubi (>= 1.5)
+  forme
   minitest (>= 5.7.0)
   minitest-global_expectations
   minitest-hooks (>= 1.1.0)

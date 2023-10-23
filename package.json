@@ -1,24 +1,24 @@
 {
+  "name": "trooper",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
   "scripts": {
-    "build": "esbuild ./assets/js/app.js --bundle --outfile=./assets/js/build/main.js --watch",
-    "build:watch": "esbuild ./assets/js/app.js --bundle --outfile=./assets/js/build/main.js --watch",
-    "build:prod": "esbuild ./assets/js/app.js --bundle --minify --outfile=./assets/js/build/main.js",
-    "build:css": "tailwindcss -i ./assets/css/app.css -o ./assets/css/build/main.css -c ./config/tailwind.config.js",
-    "build:css:watch": "tailwindcss -i ./assets/css/app.css -o ./assets/css/build/main.css --watch -c ./config/tailwind.config.js"
+    "build:js": "esbuild ./assets/js/main.js --bundle --minify --sourcemap --outfile=./assets/js/build/main-build.js",
+    "build:js:watch": "esbuild ./assets/js/main.js --bundle --outfile=./assets/js/build/main-build.js --watch",
+    "build:css": "sass ./assets/css/main.scss ./assets/css/build/main-build.css",
+    "build:css:watch": "sass --watch ./assets/css/main.scss ./assets/css/build/main-build.css"
   },
-  "devDependencies": {
-    "install": "^0.13.0",
-    "npm": "^10.1.0",
-    "tailwindcss": "^3.3.3"
-  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
   "dependencies": {
-    "@clerk/clerk-js": "^4.58.1",
-    "@hotwired/stimulus": "^3.2.2",
-    "@tailwindcss/aspect-ratio": "^0.4.2",
-    "@tailwindcss/container-queries": "^0.1.1",
-    "@tailwindcss/forms": "^0.5.6",
-    "@tailwindcss/typography": "^0.5.10",
-    "esbuild": "^0.19.3",
-    "htmx.org": "^1.9.6"
+    "@popperjs/core": "^2.11.8",
+    "alpinejs": "^3.13.2",
+    "bootstrap": "^5.3.2",
+    "bootswatch": "^5.3.2",
+    "esbuild": "^0.19.5",
+    "htmx.org": "^1.9.6",
+    "sass": "^1.69.4"
   }
 }

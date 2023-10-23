@@ -1,6 +1,8 @@
-<div
-  data-controller="signin-setup"
-  data-action="clerk-loaded@document->signin-setup#setup"
-  class="flex justify-center">
-  <div id="sign-in-form" data-signin-setup-target="signin"></div>
-</div>
+<h2>sign in page</h2>
+
+<form action="/session" class="d-flex flex-column gap">
+  <div class="form-floating">
+    <input type="email" name="email" id="email" placeholder="Email" required="required" class="form-control">
+    <label for="email">Email</label>
+  </div>
+</form>

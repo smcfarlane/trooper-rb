@@ -14,8 +14,6 @@ end
 require_relative 'models'
 Unreloader.require('app.rb') { 'Trooper' }
 
-require './config/clerk'
-
 run(dev ? Unreloader : Trooper.freeze.app)
 
 freeze_core = false

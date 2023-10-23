@@ -6,6 +6,7 @@ require 'roda'
 
 require 'tilt'
 require 'tilt/erubi'
+require_relative 'plugins/htmx'
 require_relative 'helpers/application_helper'
 
 class Trooper < Roda
@@ -19,8 +20,9 @@ class Trooper < Roda
          'X-XSS-Protection' => '1; mode=block'
 
   plugin :content_security_policy do |csp|
-    csp.default_src :none
-    csp.style_src :self, :'unsafe-inline'
+    csp.default_src :self, 'https://fonts.googleapis.com'
+    csp.font_src :self, 'https://fonts.gstatic.com'
+    csp.style_src :self, :'unsafe-inline', 'https://fonts.googleapis.com'
     csp.form_action :self
     csp.script_src :self
     csp.connect_src :self
@@ -29,25 +31,39 @@ class Trooper < Roda
     csp.img_src :self
   end
 
-  css_opts = { cache: false, style: :compressed }
+  css_opts = {
+    cache: ENV['RACK_ENV'] != 'development',
+    style: :compressed,
+    source_map_embed: true,
+    source_map_contents: true,
+    source_map_file: '.'
+  }
   # :nocov:
   plugin :render_coverage if defined?(SimpleCov)
   # :nocov:
 
   plugin :flash
   plugin :assets,
-         js: 'build/main.js',
-         css: 'build/main.css',
+         js: 'build/main-build.js',
+         css: 'build/main-build.css',
          css_opts: css_opts,
          timestamp_paths: true
-  plugin :render, escape: true, layout: './layout',
-                  template_opts: { chain_appends: !defined?(SimpleCov), freeze: true, skip_compiled_encoding_detection: true }
+  plugin :render,
+         escape: true,
+         layout: './layout',
+         template_opts: {
+           chain_appends: !defined?(SimpleCov),
+           freeze: true, skip_compiled_encoding_detection: true
+         }
   plugin :render_each
   plugin :partials, views: 'views'
-  plugin :public
+  plugin :htmx
+  plugin :public, gzip: true
   plugin :Integer_matcher_max
   plugin :typecast_params_sized_integers, sizes: [64], default_size: 64
   plugin :hash_branch_view_subdir
+  plugin :plain_hash_response_headers
+  plugin :request_headers
 
   logger = if ENV['RACK_ENV'] == 'test'
              Class.new { def write(_) end }.new
@@ -95,7 +111,9 @@ class Trooper < Roda
     plugin :autoload_hash_branches
     autoload_hash_branch_dir('./routes')
   end
+  # rubocop:disable Lint/EmptyBlock
   Unreloader.autoload('routes', delete_hook: proc { |f| hash_branch(File.basename(f).delete_suffix('.rb')) }) {}
+  # rubocop:enable Lint/EmptyBlock
 
   include ApplicationHelper
 
@@ -106,20 +124,7 @@ class Trooper < Roda
     r.hash_branches('')
 
     r.root do
-      view 'index'
-    end
-
-    r.is 'sign_in' do
-      view 'users/sign_in'
-    end
-
-    r.is 'sign_out' do
-      r.delete do
-      end
-    end
-
-    r.is 'sign_up' do
-      view 'users/sign_up'
+      hx_render 'index'
     end
   end
 end

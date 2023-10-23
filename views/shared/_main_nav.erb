@@ -1,30 +1,17 @@
-<div class="w-full px-6 h-16 shadow flex justify-between items-center">
-  <div id="logo">
-    <a class="text-3xl" href="/">Trooper</a>
-    <% if env['REQUEST_PATH'].include?('admin') %>
-      <span class="text-3xl">|</span>
-      <span class="text-xl">Admin</span>
-    <% end %>
-  </div>
-  <div class="flex gap-2">
-    <% if false %>
-      <div class="flex items-center gap-2">
-        <% if false %>
-          <div><%= link_to 'Troop', troop_path(current_troop) %></div>
-          <div>|</div>
-          <div><%= link_to 'Events', troop_events_path(current_troop) %></div>
-        <% end %>
-      </div>
+<header class="p-3 text-bg-primary">
+  <div class="container">
+    <div class="d-flex flex-wrap flex-column flex-md-row align-items-center justify-content-center justify-content-md-between">
+      <a href="/" hx-boost="false" class="d-flex align-items-center mb-2 mb-lg-0 text-white text-decoration-none">
+        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-calendar-heart" style="height: 2em; width: 3em;" viewBox="0 0 16 16">
+          <path fill-rule="evenodd" d="M4 .5a.5.5 0 0 0-1 0V1H2a2 2 0 0 0-2 2v11a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V3a2 2 0 0 0-2-2h-1V.5a.5.5 0 0 0-1 0V1H4V.5ZM1 14V4h14v10a1 1 0 0 1-1 1H2a1 1 0 0 1-1-1Zm7-6.507c1.664-1.711 5.825 1.283 0 5.132-5.825-3.85-1.664-6.843 0-5.132Z"/>
+        </svg>
+        <span class="h3 m-0">Troop Manager</span>
+      </a>
 
-    <% else %>
-      <div class="flex items-center">
-        <div class="mr-4">
-          <a href="/sign_in">Sign In</a>
-        </div>
-        <div>
-          <a href="/sign_up">Sign up</a>
-        </div>
+      <div class="text-end">
+        <a class="btn btn-outline-light me-2" href="/users/sign_in" hx-boost="true" hx-target="main#main" hx-swap="innerHTML">Sign In</a>
+        <a class="btn btn-secondary" href="/users/sign_up">Sign up</a>
       </div>
-    <% end %>
+    </div>
   </div>
-</div>
+</header>

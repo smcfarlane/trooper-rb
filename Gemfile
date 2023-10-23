@@ -2,7 +2,6 @@
 
 source 'https://rubygems.org'
 
-gem 'clerk-sdk-ruby', require: 'clerk'
 gem 'erubi', '>= 1.5'
 gem 'puma'
 gem 'rack-unreloader', '>= 2.1'

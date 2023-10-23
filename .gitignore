@@ -3,3 +3,4 @@
 /node_modules
 /assets/js/build/*.js
 /assets/css/build/*.css
+/public/assets/*

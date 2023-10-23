@@ -1,6 +1,8 @@
 # frozen_string_literal: true
 
 class User < Sequel::Model
+  attr_accessor :new_password, :password_check
+
   one_to_many :memberships
   one_to_many :troops, through: :memberships
   one_to_many :events
