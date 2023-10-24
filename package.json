@@ -5,7 +5,7 @@
   "main": "index.js",
   "scripts": {
     "build:js": "esbuild ./assets/js/main.js --bundle --minify --sourcemap --outfile=./assets/js/build/main-build.js",
-    "build:js:watch": "esbuild ./assets/js/main.js --bundle --outfile=./assets/js/build/main-build.js --watch",
+    "build:js:watch": "esbuild ./assets/js/main.js --bundle --minify --sourcemap --outfile=./assets/js/build/main-build.js --watch",
     "build:css": "tailwindcss -c ./config/tailwind.config.js -i ./assets/css/main.css -o ./assets/css/build/main-build.css",
     "build:css:watch": "tailwindcss -c ./config/tailwind.config.js -i ./assets/css/main.css -o ./assets/css/build/main-build.css --watch"
   },

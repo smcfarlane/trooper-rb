@@ -5,9 +5,11 @@ require_relative 'models'
 require 'roda'
 
 require 'tilt'
-require 'tilt/erubi'
+require 'haml'
+require 'tilt/haml'
 require_relative 'plugins/htmx'
-require_relative 'helpers/application_helper'
+$LOAD_PATH.unshift(File.expand_path('helpers', __dir__))
+Dir['helpers/**/*.rb'].each { |f| require_relative f.delete_suffix('.rb') }
 
 class Trooper < Roda
   opts[:check_dynamic_arity] = false
@@ -50,6 +52,7 @@ class Trooper < Roda
          timestamp_paths: true
   plugin :render,
          escape: true,
+         engine: 'haml',
          layout: './layout',
          template_opts: {
            chain_appends: !defined?(SimpleCov),

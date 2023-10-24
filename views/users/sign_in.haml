@@ -1,0 +1,6 @@
+.flex.flex-col.gap-4{:class => "w-3/5"}
+  %h2.text-3xl.font-semibold Sign In
+  %form.d-flex.flex-column.gap{:action => "/session"}
+    != render "components/email_input", locals: {name: 'email'}
+    .flex.items-center.space-x-2.rounded-md.bg-stone-300.p-2
+      %input#email.border-none.bg-transparent.text-lg.text-gray-900.focus:outline-none.flex-grow{:autocomplete => "email", :name => "email", :placeholder => "email", :type => "email"}/

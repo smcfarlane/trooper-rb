@@ -3,6 +3,7 @@
 source 'https://rubygems.org'
 
 gem 'erubi', '>= 1.5'
+gem 'haml'
 gem 'puma'
 gem 'rack-unreloader', '>= 2.1'
 gem 'rake'

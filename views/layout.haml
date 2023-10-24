@@ -1,0 +1,23 @@
+!!!
+%html{:lang => "en"}
+  %head
+    %meta{:content => "text/html; charset=UTF-8", "http-equiv" => "Content-Type"}/
+    %meta{:charset => "utf-8"}/
+    %meta{:content => "width=device-width, initial-scale=1", :name => "viewport"}/
+    != assets(:css)
+    != assets(:js, defer: nil)
+    %title
+      Trooper
+      - if @page_title
+        \- #{@page_title}
+  %body.dark:bg-stone-700.dark:text-gray-100{"hx-boost" => "true"}
+    != partial('shared/main_nav')
+    .flex.justify-center.mt-8.mx-4.sm:mx-8.md:mx-0
+      %main#main.w-full{:class => "md:w-11/12 lg:w-10/12 xl:w-8/12", "hx-swap" => "", "hx-target" => "main#main", :innerhtml => ""}
+        - if flash.any?
+          .p-4
+            - if flash['notice']
+              .alert.alert-success{:role => "alert"}= flash['notice']
+            - if flash['error']
+              .alert.alert-danger{:role => "alert"}= flash['error']
+        != yield

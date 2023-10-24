@@ -1,0 +1,10 @@
+%body
+  %header.w-full.px-2.sm:px-6.h-16.border-b.flex.justify-between.items-center{:class => "border-slate-900/10 dark:border-slate-300/10"}
+    #logo
+      %a.text-2xl.font-bold.dark:text-green-500.text-green-800.no-underline{:href => "/"}
+        %span Troop Manager
+    .flex.justify-end.items-center.gap-4
+      /
+        <a href="/sign_out" class="text-gray-500 hover:text-gray-700 dark:text-gray-400 dark:hover:text-gray-200">Sign Out</a>
+      %a.btn-outline-yellow{:href => "/users/sign_in", "hx-target" => "main#main"} Sign In
+      %a.std-menu-link{:href => "/users/sign_up", "hx-target" => "main#main"} Sign Up
